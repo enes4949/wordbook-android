@@ -1,4 +1,4 @@
-package dev.atahabaki.wordbook.ui
+package dev.atahabaki.wordbook.ui.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
