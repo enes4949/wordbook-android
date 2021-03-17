@@ -12,5 +12,5 @@ interface WordDao {
     suspend fun insert_or_update(word: WordItem)
 
     @Delete
-    suspend fun delte(word: WordItem)
+    suspend fun delete(word: WordItem)
 }
