@@ -6,7 +6,7 @@ import dev.atahabaki.wordbook.data.entities.WordItem
 class WordRepository(
     private val db: WordDatabase
 ) {
-    suspend fun insert_or_update(word: WordItem) = db.getWordDao().insert_or_update(word)
+    suspend fun insertOrUpdate(word: WordItem) = db.getWordDao().insert_or_update(word)
 
     suspend fun delete(word: WordItem) = db.getWordDao().insert_or_update(word)
 
