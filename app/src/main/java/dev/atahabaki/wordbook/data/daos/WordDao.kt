@@ -1,8 +1,8 @@
-package dev.atahabaki.wordbook.daos
+package dev.atahabaki.wordbook.data.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import dev.atahabaki.wordbook.entities.WordItem
+import dev.atahabaki.wordbook.data.entities.WordItem
 
 @Dao
 interface WordDao {

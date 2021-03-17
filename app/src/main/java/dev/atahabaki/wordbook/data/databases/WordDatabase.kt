@@ -1,11 +1,11 @@
-package dev.atahabaki.wordbook.databases
+package dev.atahabaki.wordbook.data.databases
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import dev.atahabaki.wordbook.daos.WordDao
-import dev.atahabaki.wordbook.entities.WordItem
+import dev.atahabaki.wordbook.data.daos.WordDao
+import dev.atahabaki.wordbook.data.entities.WordItem
 
 @Database(
     entities = [WordItem::class],
@@ -27,7 +27,7 @@ abstract class WordDatabase: RoomDatabase() {
         }
 
         private fun createDatabase(context: Context) {
-            Room.databaseBuilder(context,WordDatabase::class.java,"wordbook.db").build()
+            Room.databaseBuilder(context, WordDatabase::class.java,"wordbook.db").build()
         }
     }
 }

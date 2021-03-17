@@ -1,4 +1,4 @@
-package dev.atahabaki.wordbook.entities
+package dev.atahabaki.wordbook.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
