@@ -9,5 +9,5 @@ data class WordItem(
     var meaning: String
     ) {
     @PrimaryKey(autoGenerate = true)
-    var _id: Int? = null
+    var wid: Int? = null
 }
