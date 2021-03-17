@@ -9,8 +9,8 @@ import dev.atahabaki.wordbook.entities.WordItem
 @Dao
 interface WordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert_or_update(word: WordItem)
+    suspend fun insert_or_update(word: WordItem)
 
     @Delete
-    fun delte(word: WordItem)
+    suspend fun delte(word: WordItem)
 }
