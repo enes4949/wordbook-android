@@ -1,9 +1,7 @@
 package dev.atahabaki.wordbook.daos
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import dev.atahabaki.wordbook.entities.WordItem
 
 @Dao
@@ -13,4 +11,7 @@ interface WordDao {
 
     @Delete
     suspend fun delete(word: WordItem)
+
+    @Query("SELECT * FROM wordbook")
+    fun getAllWords(): LiveData<List<WordItem>>
 }
