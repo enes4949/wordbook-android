@@ -22,12 +22,11 @@ abstract class WordDatabase: RoomDatabase() {
 
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
             instance ?: createDatabase(context).also {
-                instance = it as WordDatabase
+                instance = it
             }
         }
 
-        private fun createDatabase(context: Context) {
+        private fun createDatabase(context: Context): WordDatabase =
             Room.databaseBuilder(context, WordDatabase::class.java,"wordbook.db").build()
-        }
     }
 }
