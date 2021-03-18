@@ -41,6 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            app:itemIconTint="@color/primaryLightColor"
+            app:headerLayout="@layout/words_header_nav_menu"
             app:menu="@menu/words_menu" />
     </FrameLayout>
 
