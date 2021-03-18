@@ -2,9 +2,11 @@ package dev.atahabaki.wordbook.ui.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.adapters.WordItemAdapter
 import dev.atahabaki.wordbook.data.databases.WordDatabase
@@ -16,12 +18,12 @@ import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 
 class WordBookActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWordbookBinding
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityWordbookBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        initView()
+        initBottomNav()
 
         val database = WordDatabase(this)
         val repository = WordRepository(database)
@@ -45,4 +47,35 @@ class WordBookActivity : AppCompatActivity() {
    private fun addJunkItem(viewModel: WordBookViewModel) {
        viewModel.insertOrUpdate(WordItem("Merhaba", "Hi!"))
    }
+
+    private fun initBottomNav() {
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.mainFramer)
+        bottomSheetBehavior.isHideable = true
+        bottomSheetBehavior.peekHeight = binding.wordsBottomAppbar.height
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        initBottomAppBarNavigationClick()
+        dismissWhenClickToFramerListener()
+    }
+
+    private fun initBottomAppBarNavigationClick() {
+        binding.wordsBottomAppbar.setNavigationOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+    }
+
+    private fun dismissWhenClickToFramerListener() {
+        binding.mainFramer.setOnClickListener {
+            dismissMainNavView()
+        }
+    }
+
+    private fun dismissMainNavView() {
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+
+    private fun initView() {
+        binding = ActivityWordbookBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+    }
 }
