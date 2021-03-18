@@ -19,6 +19,8 @@
         android:id="@+id/words_bottom_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_menu"
+        app:menu="@menu/words_menu"
         app:hideOnScroll="true"
         android:layout_gravity="bottom"/>
 
@@ -28,5 +30,20 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         app:layout_anchor="@id/words_bottom_appbar"/>
+
+    <FrameLayout
+        android:id="@+id/main_framer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="20dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:itemIconTint="@color/primaryLightColor"
+            app:headerLayout="@layout/words_header_nav_menu"
+            app:menu="@menu/words_menu" />
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
