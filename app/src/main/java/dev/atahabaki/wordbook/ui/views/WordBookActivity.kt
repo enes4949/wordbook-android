@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.adapters.WordItemAdapter
@@ -33,6 +35,21 @@ class WordBookActivity : AppCompatActivity() {
         val adapter = WordItemAdapter(listOf(), viewModel)
         binding.wordsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.wordsRecyclerView.adapter = adapter
+
+        ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                viewModel.delete(adapter.getWordAtPosition(viewHolder.adapterPosition))
+                adapter.notifyDataSetChanged()
+            }
+        }).attachToRecyclerView(binding.wordsRecyclerView)
 
         viewModel.getAllWords().observe(this, Observer {
             adapter.items = it
