@@ -8,7 +8,7 @@ class WordRepository(
 ) {
     suspend fun insertOrUpdate(word: WordItem) = db.getWordDao().insert_or_update(word)
 
-    suspend fun delete(word: WordItem) = db.getWordDao().insert_or_update(word)
+    suspend fun delete(word: WordItem) = db.getWordDao().delete(word)
 
     fun getAllWords() = db.getWordDao().getAllWords()
 }
