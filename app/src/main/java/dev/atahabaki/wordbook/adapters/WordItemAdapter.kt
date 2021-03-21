@@ -29,6 +29,10 @@ class WordItemAdapter(
         return items.size
     }
 
+    fun getWordAtPosition(position: Int): WordItem {
+        return items[position]
+    }
+
     inner class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
