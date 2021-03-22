@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.views.WordBookActivity">
 
+    <FrameLayout
+        android:id="@+id/activity_wordbook_framer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="fill"/>
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/words_bottom_appbar"
         android:layout_width="match_parent"
