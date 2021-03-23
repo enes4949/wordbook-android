@@ -7,4 +7,9 @@
     <string name="settings">Settings</string>
     <string name="by_author">by <b>@atahabaki</b></string>
     <string name="search_hint">What do you want to remember?</string>
+    <string name="filter">Filter words by...</string>
+    <string name="order_az_by_word">Order words A-Z</string>
+    <string name="order_za_by_word">Order words Z-A</string>
+    <string name="order_za_by_meaning">Order meanings A-Z</string>
+    <string name="order_az_by_meaning">Order meanings Z-A</string>
 </resources>
