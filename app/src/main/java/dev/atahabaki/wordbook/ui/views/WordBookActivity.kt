@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
@@ -29,19 +30,42 @@ class WordBookActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initView()
         initBottomNav()
+        navigateToList()
 
         binding.wordsFab.setOnClickListener {
             addJunkItem(viewModel)
         }
 
+        binding.wordsBottomAppbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.words_menu_search -> {
+                    navigateToSearch()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun navigateToList() = navigateToWhere(WordBookListFragment())
+    private fun navigateToSearch() = navigateToWhere(WordBookSearchFragment())
+
+    private fun navigateToWhere(where: Fragment) {
         supportFragmentManager.beginTransaction().also {
-            it.replace(R.id.activity_wordbook_framer, WordBookListFragment())
+            it.replace(R.id.activity_wordbook_framer, where)
             it.commit()
         }
     }
 
    private fun addJunkItem(viewModel: WordBookViewModel) {
-       viewModel.insertOrUpdate(WordItem("Merhaba", "Hi!"))
+       val junks = listOf<WordItem>(
+           WordItem("Merhaba", "Hi"),
+           WordItem("Wow", "Shit"),
+           WordItem("Cool", "Incredible"),
+           WordItem("Rechercher", "ara")
+       )
+       val random = (0..junks.size).random()
+       viewModel.insertOrUpdate(junks[random])
    }
 
     private fun initBottomNav() {
