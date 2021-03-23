@@ -40,7 +40,7 @@
             android:layout_gravity="bottom"
             app:itemIconTint="@color/primaryLightColor"
             app:headerLayout="@layout/words_header_nav_menu"
-            app:menu="@menu/words_menu" />
+            app:menu="@menu/nav_menu" />
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
