@@ -1,5 +1,7 @@
 package dev.atahabaki.wordbook.ui.views
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
@@ -12,6 +14,7 @@ import dev.atahabaki.wordbook.data.entities.WordItem
 import dev.atahabaki.wordbook.databinding.ActivityWordbookBinding
 import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
+import dev.atahabaki.wordbook.utils.Constants
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,6 +39,8 @@ class WordBookActivity : AppCompatActivity() {
             addJunkItem(viewModel)
         }
 
+        handleNavMenu()
+
         binding.wordsBottomAppbar.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.words_menu_search -> {
@@ -45,6 +50,31 @@ class WordBookActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    private fun handleNavMenu() {
+        binding.wordbookNavView.setNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.words_nav_menu_coffee -> {
+                    gotoCoffee()
+                    true
+                }
+                R.id.words_nav_menu_feedback -> {
+                    gotoFeedback()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun gotoCoffee() = openInBrowser(Constants.BUYMEACOFFE_LINK)
+    private fun gotoFeedback() = openInBrowser(Constants.FEEDBACK_LINK)
+
+    private fun openInBrowser(link: String) {
+       val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(link)
+        startActivity(intent)
     }
 
     private fun navigateToList() = navigateToWhere(WordBookListFragment())
