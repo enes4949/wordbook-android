@@ -14,4 +14,7 @@ interface WordDao {
 
     @Query("SELECT * FROM wordbook")
     fun getAllWords(): LiveData<List<WordItem>>
+
+    @Query("SELECT * FROM wordbook WHERE LOWER(content) LIKE '%' || :content || '%' OR LOWER(meaning) LIKE '%' || :content || '%'")
+    fun searchWords(content: String): LiveData<List<WordItem>>?
 }
