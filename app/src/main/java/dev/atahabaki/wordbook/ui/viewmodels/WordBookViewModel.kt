@@ -1,5 +1,7 @@
 package dev.atahabaki.wordbook.ui.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.assisted.AssistedInject
@@ -33,4 +35,6 @@ class WordBookViewModel @AssistedInject constructor(
     }
 
     fun getAllWords() = repository.getAllWords()
+
+    fun searchWords(content: String) = repository.searchWords(content)
 }

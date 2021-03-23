@@ -12,4 +12,6 @@ class WordRepository @Inject constructor(
     suspend fun delete(word: WordItem) = db.getWordDao().delete(word)
 
     fun getAllWords() = db.getWordDao().getAllWords()
+
+    fun searchWords(content: String) = db.getWordDao().searchWords(content)
 }
