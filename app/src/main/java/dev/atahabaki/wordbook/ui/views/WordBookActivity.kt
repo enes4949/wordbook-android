@@ -54,15 +54,14 @@ class WordBookActivity : AppCompatActivity() {
 
     private fun handleNavMenu() {
         binding.wordbookNavView.setNavigationItemSelectedListener {
+            dismissMainNavView()
             when(it.itemId) {
                 R.id.words_nav_menu_coffee -> {
                     gotoCoffee()
-                    dismissMainNavView()
                     true
                 }
                 R.id.words_nav_menu_feedback -> {
                     gotoFeedback()
-                    dismissMainNavView()
                     true
                 }
                 else -> false
