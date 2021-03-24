@@ -39,7 +39,7 @@ class WordBookViewModel @AssistedInject constructor(
     fun searchWords(content: String) = repository.searchWords(content)
 
     private var mutableFabState = MutableLiveData<Boolean>()
-    private val fabState: LiveData<Boolean> get() = mutableFabState
+    val fabState: LiveData<Boolean> get() = mutableFabState
 
     fun selectFabState(isHidden: Boolean) {
         mutableFabState.value = isHidden
