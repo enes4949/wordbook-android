@@ -95,7 +95,7 @@ class WordBookActivity : AppCompatActivity() {
            WordItem("Cool", "Incredible"),
            WordItem("Rechercher", "ara")
        )
-       val random = (0..junks.size).random()
+       val random = (junks.indices).random()
        viewModel.insertOrUpdate(junks[random])
    }
 
