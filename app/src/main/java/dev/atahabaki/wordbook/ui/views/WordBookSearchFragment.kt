@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.adapters.WordItemAdapter
 import dev.atahabaki.wordbook.databinding.FragmentWordbookSearchBinding
 import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
+import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 import javax.inject.Inject
 
@@ -25,9 +27,11 @@ class WordBookSearchFragment: Fragment(R.layout.fragment_wordbook_search) {
     @Inject
     lateinit var viewModelFactory: WordBookViewModelFactory
 
-    private val viewModel: WordBookViewModel by viewModels {
+    private val viewModel: WordBookViewModel by activityViewModels {
         WordBookViewModel.provideFactory(viewModelFactory)
     }
+
+    private val fabViewModel: FabStateViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +45,7 @@ class WordBookSearchFragment: Fragment(R.layout.fragment_wordbook_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = WordItemAdapter(listOf())
+        fabViewModel.selectFabState(true)
         binding.fragmentWordbookSearchRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.fragmentWordbookSearchRecyclerView.adapter = adapter
         binding.wordbookSearchTextInput.editText?.doOnTextChanged { text, start, count, after ->

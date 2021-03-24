@@ -4,15 +4,18 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.FrameLayout
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.data.entities.WordItem
 import dev.atahabaki.wordbook.databinding.ActivityWordbookBinding
 import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
+import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 import dev.atahabaki.wordbook.utils.Constants
 import javax.inject.Inject
@@ -29,17 +32,23 @@ class WordBookActivity : AppCompatActivity() {
         WordBookViewModel.provideFactory(viewModelFactory)
     }
 
+    private val fabViewModel: FabStateViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
         initBottomNav()
         navigateToList()
-
         binding.wordsFab.setOnClickListener {
             addJunkItem(viewModel)
         }
 
         handleNavMenu()
+
+        fabViewModel.fabState.observe(this, Observer {
+            if (it) binding.wordsFab.hide()
+            else binding.wordsFab.show()
+        })
 
         binding.wordsBottomAppbar.setOnMenuItemClickListener {
             when(it.itemId) {
