@@ -7,11 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.data.entities.WordItem
-import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 
 class WordItemAdapter(
     var items: List<WordItem>,
-    private val viewModel: WordBookViewModel
 ): RecyclerView.Adapter<WordItemAdapter.WordViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {

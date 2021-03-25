@@ -6,14 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.views.WordBookActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/words_recycler_view"
+    <FrameLayout
+        android:id="@+id/activity_wordbook_framer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="fill"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/words_bottom_appbar"
@@ -38,12 +35,13 @@
         android:elevation="20dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
         <com.google.android.material.navigation.NavigationView
+            android:id="@+id/wordbook_nav_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:itemIconTint="@color/primaryLightColor"
             app:headerLayout="@layout/words_header_nav_menu"
-            app:menu="@menu/words_menu" />
+            app:menu="@menu/nav_menu" />
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

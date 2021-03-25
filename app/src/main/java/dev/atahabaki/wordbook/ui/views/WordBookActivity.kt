@@ -1,68 +1,111 @@
 package dev.atahabaki.wordbook.ui.views
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.FrameLayout
+import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
-import dev.atahabaki.wordbook.adapters.WordItemAdapter
-import dev.atahabaki.wordbook.data.databases.WordDatabase
 import dev.atahabaki.wordbook.data.entities.WordItem
-import dev.atahabaki.wordbook.data.repositories.WordRepository
 import dev.atahabaki.wordbook.databinding.ActivityWordbookBinding
 import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
+import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
+import dev.atahabaki.wordbook.utils.Constants
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class WordBookActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWordbookBinding
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+
+    @Inject
+    lateinit var viewModelFactory: WordBookViewModelFactory
+
+    private val viewModel: WordBookViewModel by viewModels {
+        WordBookViewModel.provideFactory(viewModelFactory)
+    }
+
+    private val fabViewModel: FabStateViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
         initBottomNav()
-
-        val database = WordDatabase(this)
-        val repository = WordRepository(database)
-        val factory = WordBookViewModelFactory(repository)
-        val viewModel = ViewModelProvider(this,factory).get(WordBookViewModel::class.java)
-
-        val adapter = WordItemAdapter(listOf(), viewModel)
-        binding.wordsRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.wordsRecyclerView.adapter = adapter
-
-        ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.delete(adapter.getWordAtPosition(viewHolder.adapterPosition))
-                adapter.notifyDataSetChanged()
-            }
-        }).attachToRecyclerView(binding.wordsRecyclerView)
-
-        viewModel.getAllWords().observe(this, Observer {
-            adapter.items = it
-            adapter.notifyDataSetChanged()
-        })
-
+        navigateToList()
         binding.wordsFab.setOnClickListener {
             addJunkItem(viewModel)
+        }
+
+        handleNavMenu()
+
+        fabViewModel.fabState.observe(this, Observer {
+            if (it) binding.wordsFab.hide()
+            else binding.wordsFab.show()
+        })
+
+        binding.wordsBottomAppbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.words_menu_search -> {
+                    navigateToSearch()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun handleNavMenu() {
+        binding.wordbookNavView.setNavigationItemSelectedListener {
+            dismissMainNavView()
+            when(it.itemId) {
+                R.id.words_nav_menu_coffee -> {
+                    gotoCoffee()
+                    true
+                }
+                R.id.words_nav_menu_feedback -> {
+                    gotoFeedback()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun gotoCoffee() = openInBrowser(Constants.BUYMEACOFFE_LINK)
+    private fun gotoFeedback() = openInBrowser(Constants.FEEDBACK_LINK)
+
+    private fun openInBrowser(link: String) {
+       val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(link)
+        startActivity(intent)
+    }
+
+    private fun navigateToList() = navigateToWhere(WordBookListFragment())
+    private fun navigateToSearch() = navigateToWhere(WordBookSearchFragment())
+
+    private fun navigateToWhere(where: Fragment) {
+        supportFragmentManager.beginTransaction().also {
+            it.replace(R.id.activity_wordbook_framer, where)
+            it.commit()
         }
     }
 
    private fun addJunkItem(viewModel: WordBookViewModel) {
-       viewModel.insertOrUpdate(WordItem("Merhaba", "Hi!"))
+       val junks = listOf<WordItem>(
+           WordItem("Merhaba", "Hi"),
+           WordItem("Wow", "Shit"),
+           WordItem("Cool", "Incredible"),
+           WordItem("Rechercher", "ara")
+       )
+       val random = (junks.indices).random()
+       viewModel.insertOrUpdate(junks[random])
    }
 
     private fun initBottomNav() {
