@@ -32,6 +32,7 @@
         android:id="@+id/main_framer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:elevation="20dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/wordbook_nav_view"
