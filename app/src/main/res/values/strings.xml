@@ -13,5 +13,7 @@
     <string name="order_za_by_meaning">Order meanings A-Z</string>
     <string name="order_az_by_meaning">Order meanings Z-A</string>
     <string name="close_search">Close</string>
-    <string name="close_search_tooltip">Close search input</string>
+    <string name="close_search_tooltip">Clear search and close search box...</string>
+    <string name="delete_all">Delete All</string>
+    <string name="delete_all_tooltip">Delete everything...</string>
 </resources>
