@@ -33,37 +33,24 @@
             android:hint="@string/search_hint"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:visibility="gone"
+            tools:visibility="visible"
+            app:endIconDrawable="@drawable/ic_clear"
+            app:endIconMode="clear_text"
+            app:endIconContentDescription="@string/close_search_tooltip"
             android:background="@color/defaultThemeColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/wordbook_search_close"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp" />
         </com.google.android.material.textfield.TextInputLayout>
-        <ImageButton
-            android:id="@+id/wordbook_search_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_clear"
-            android:padding="12dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:visibility="gone"
-            android:contentDescription="@string/close_search_tooltip"
-            app:layout_constraintTop_toTopOf="@id/wordbook_search_text_input"
-            app:layout_constraintBottom_toBottomOf="@id/wordbook_search_text_input"
-            app:layout_constraintStart_toEndOf="@id/wordbook_search_text_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:visibility="visible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
