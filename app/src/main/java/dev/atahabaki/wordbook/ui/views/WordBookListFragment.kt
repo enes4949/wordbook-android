@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,6 +17,8 @@ import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.adapters.WordItemAdapter
 import dev.atahabaki.wordbook.databinding.FragmentWordbookListBinding
 import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
+import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
+import dev.atahabaki.wordbook.ui.viewmodels.SabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 import javax.inject.Inject
 
@@ -30,6 +34,9 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
         WordBookViewModel.provideFactory(viewModelFactory)
     }
 
+    private val fabViewModel: FabStateViewModel by activityViewModels()
+    private val sabViewModel: SabStateViewModel by activityViewModels()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentWordbookListBinding.inflate(inflater,container,false)
         return binding.root
@@ -37,6 +44,21 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sabViewModel.sabState.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                binding.wordbookSearchTextInput.visibility = View.GONE
+                binding.wordbookSearchClose.visibility = View.GONE
+                fabViewModel.selectFabState(false)
+            }
+            else {
+                binding.wordbookSearchTextInput.visibility = View.VISIBLE
+                binding.wordbookSearchClose.visibility = View.VISIBLE
+                fabViewModel.selectFabState(true)
+            }
+        })
+        binding.wordbookSearchClose.setOnClickListener {
+            sabViewModel.selectSabState(true)
+        }
         val adapter = WordItemAdapter(listOf())
         binding.fragmentWordbookListRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.fragmentWordbookListRecyclerView.adapter = adapter
