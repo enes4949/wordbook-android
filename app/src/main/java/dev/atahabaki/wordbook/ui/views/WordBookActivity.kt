@@ -60,6 +60,11 @@ class WordBookActivity : AppCompatActivity() {
                     sabViewModel.selectSabState(false)
                     true
                 }
+                R.id.words_menu_delete_all -> {
+                    //TODO(1) Show an alert message...
+                    viewModel.deleteAll()
+                    true
+                }
                 else -> false
             }
         }
