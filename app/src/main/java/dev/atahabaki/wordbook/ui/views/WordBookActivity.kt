@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import androidx.activity.viewModels
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -16,6 +17,7 @@ import dev.atahabaki.wordbook.data.entities.WordItem
 import dev.atahabaki.wordbook.databinding.ActivityWordbookBinding
 import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
 import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
+import dev.atahabaki.wordbook.ui.viewmodels.SabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 import dev.atahabaki.wordbook.utils.Constants
 import javax.inject.Inject
@@ -33,6 +35,7 @@ class WordBookActivity : AppCompatActivity() {
     }
 
     private val fabViewModel: FabStateViewModel by viewModels()
+    private val sabViewModel: SabStateViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,14 +49,18 @@ class WordBookActivity : AppCompatActivity() {
         handleNavMenu()
 
         fabViewModel.fabState.observe(this, Observer {
-            if (it) binding.wordsFab.hide()
-            else binding.wordsFab.show()
+            if (it) {
+                binding.wordsFab.hide()
+            }
+            else {
+                binding.wordsFab.show()
+            }
         })
 
         binding.wordsBottomAppbar.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.words_menu_search -> {
-                    navigateToSearch()
+                    sabViewModel.selectSabState(false)
                     true
                 }
                 else -> false
@@ -88,7 +95,7 @@ class WordBookActivity : AppCompatActivity() {
     }
 
     private fun navigateToList() = navigateToWhere(WordBookListFragment())
-    private fun navigateToSearch() = navigateToWhere(WordBookSearchFragment())
+    //private fun navigateToSearch() =
 
     private fun navigateToWhere(where: Fragment) {
         supportFragmentManager.beginTransaction().also {
