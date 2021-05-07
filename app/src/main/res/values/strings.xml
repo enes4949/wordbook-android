@@ -12,4 +12,6 @@
     <string name="order_za_by_word">Order words Z-A</string>
     <string name="order_za_by_meaning">Order meanings A-Z</string>
     <string name="order_az_by_meaning">Order meanings Z-A</string>
+    <string name="close_search">Close</string>
+    <string name="close_search_tooltip">Close search input</string>
 </resources>
