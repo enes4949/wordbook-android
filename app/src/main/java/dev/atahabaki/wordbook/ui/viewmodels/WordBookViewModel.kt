@@ -1,30 +1,18 @@
 package dev.atahabaki.wordbook.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.atahabaki.wordbook.data.entities.WordItem
 import dev.atahabaki.wordbook.data.repositories.WordRepository
-import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WordBookViewModel @AssistedInject constructor(
+@HiltViewModel
+class WordBookViewModel @Inject internal constructor(
     private val repository: WordRepository
 ): ViewModel() {
-
-    companion object {
-        fun provideFactory(
-                assistedFactory: WordBookViewModelFactory
-        ): ViewModelProvider.Factory = object: ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return assistedFactory.create() as T
-            }
-        }
-    }
 
     fun insertOrUpdate(word: WordItem) = CoroutineScope(Dispatchers.Main).launch {
         repository.insertOrUpdate(word)
