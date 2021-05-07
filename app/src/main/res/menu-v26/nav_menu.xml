@@ -4,16 +4,19 @@
     <item
         android:id="@+id/words_nav_menu_settings"
         android:title="@string/settings"
+        android:tooltipText="@string/settings"
         app:showAsAction="never"
         android:icon="@drawable/ic_settings"/>
     <item
         android:id="@+id/words_nav_menu_coffee"
         android:title="@string/buy_me_a_coffee"
+        android:tooltipText="@string/buy_me_a_coffee"
         app:showAsAction="never"
         android:icon="@drawable/ic_coffee"/>
     <item
         android:id="@+id/words_nav_menu_feedback"
         android:title="@string/send_feedback"
+        android:tooltipText="@string/send_feedback"
         app:showAsAction="never"
         android:icon="@drawable/ic_feedback"/>
 </menu>
