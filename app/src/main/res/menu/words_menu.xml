@@ -9,6 +9,14 @@
         android:iconTint="@color/primaryColor"
         app:showAsAction="always"/>
     <item
+        android:id="@+id/words_menu_search_close"
+        android:title="@string/close_search"
+        android:tooltipText="@string/close_search_tooltip"
+        android:icon="@drawable/ic_clear"
+        android:iconTint="@color/primaryColor"
+        app:showAsAction="always"
+        android:visible="false"/>
+    <item
         android:id="@+id/words_menu_filter"
         android:title="@string/filter"
         android:tooltipText="@string/filter"

@@ -4,12 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.FrameLayout
 import androidx.activity.viewModels
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
@@ -48,7 +45,7 @@ class WordBookActivity : AppCompatActivity() {
 
         handleNavMenu()
 
-        fabViewModel.fabState.observe(this, Observer {
+        fabViewModel.fabState.observe(this, {
             if (it) {
                 binding.wordsFab.hide()
             }
@@ -95,7 +92,6 @@ class WordBookActivity : AppCompatActivity() {
     }
 
     private fun navigateToList() = navigateToWhere(WordBookListFragment())
-    //private fun navigateToSearch() =
 
     private fun navigateToWhere(where: Fragment) {
         supportFragmentManager.beginTransaction().also {
@@ -105,7 +101,7 @@ class WordBookActivity : AppCompatActivity() {
     }
 
    private fun addJunkItem(viewModel: WordBookViewModel) {
-       val junks = listOf<WordItem>(
+       val junks = listOf(
            WordItem("Merhaba", "Hi"),
            WordItem("Wow", "Shit"),
            WordItem("Cool", "Incredible"),

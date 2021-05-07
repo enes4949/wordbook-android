@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,14 +35,14 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
     private val fabViewModel: FabStateViewModel by activityViewModels()
     private val sabViewModel: SabStateViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentWordbookListBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sabViewModel.sabState.observe(viewLifecycleOwner, Observer {
+        sabViewModel.sabState.observe(viewLifecycleOwner, {
             if (it) {
                 binding.wordbookSearchTextInput.visibility = View.GONE
                 binding.wordbookSearchClose.visibility = View.GONE
@@ -79,8 +77,8 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
         }).attachToRecyclerView(binding.fragmentWordbookListRecyclerView)
 
         activity?.let {
-            viewModel.getAllWords().observe(it, Observer{
-                adapter.items = it
+            viewModel.getAllWords().observe(it, { list ->
+                adapter.items = list
                 adapter.notifyDataSetChanged()
             })
         }
