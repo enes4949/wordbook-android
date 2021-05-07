@@ -15,24 +15,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.adapters.WordItemAdapter
 import dev.atahabaki.wordbook.databinding.FragmentWordbookListBinding
-import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
 import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.SabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
     private var _binding: FragmentWordbookListBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var viewModelFactory: WordBookViewModelFactory
-
-    private val viewModel: WordBookViewModel by viewModels {
-        WordBookViewModel.provideFactory(viewModelFactory)
-    }
+    private val viewModel: WordBookViewModel by viewModels()
 
     private val fabViewModel: FabStateViewModel by activityViewModels()
     private val sabViewModel: SabStateViewModel by activityViewModels()
@@ -63,7 +56,7 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
         }
         binding.wordbookSearchTextInput.setEndIconOnClickListener {
             binding.wordbookSearchTextInput.editText?.setText("")
-            updateAdapterWithSearchText(adapter, "")
+            getAllWords(adapter)
             sabViewModel.selectSabState(true)
         }
 
@@ -81,7 +74,10 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
                 adapter.notifyDataSetChanged()
             }
         }).attachToRecyclerView(binding.fragmentWordbookListRecyclerView)
+        getAllWords(adapter)
+    }
 
+    private fun getAllWords(adapter: WordItemAdapter) {
         activity?.let {
             viewModel.getAllWords().observe(it, { list ->
                 adapter.items = list
@@ -90,7 +86,7 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
         }
     }
 
-    private fun updateAdapterWithSearchText(adapter: WordItemAdapter, search: String?) {
+    private fun updateAdapterWithSearchText(adapter: WordItemAdapter, search: String) {
         activity?.let {
             viewModel.searchWords(search!!.toLowerCase(Locale.getDefault()))?.observe(it, { list ->
                 adapter.items = list

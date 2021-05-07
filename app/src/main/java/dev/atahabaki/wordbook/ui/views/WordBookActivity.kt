@@ -12,24 +12,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.data.entities.WordItem
 import dev.atahabaki.wordbook.databinding.ActivityWordbookBinding
-import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
 import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.SabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 import dev.atahabaki.wordbook.utils.Constants
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class WordBookActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWordbookBinding
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
 
-    @Inject
-    lateinit var viewModelFactory: WordBookViewModelFactory
-
-    private val viewModel: WordBookViewModel by viewModels {
-        WordBookViewModel.provideFactory(viewModelFactory)
-    }
+    private val viewModel: WordBookViewModel by viewModels()
 
     private val fabViewModel: FabStateViewModel by viewModels()
     private val sabViewModel: SabStateViewModel by viewModels()
