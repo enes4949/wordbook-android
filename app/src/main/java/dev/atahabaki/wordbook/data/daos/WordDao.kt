@@ -12,6 +12,9 @@ interface WordDao {
     @Delete
     suspend fun delete(word: WordItem)
 
+    @Query("DELETE FROM wordbook")
+    suspend fun deleteAll()
+
     @Query("SELECT * FROM wordbook")
     fun getAllWords(): LiveData<List<WordItem>>
 
