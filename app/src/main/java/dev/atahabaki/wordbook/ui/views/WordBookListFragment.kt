@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -18,6 +19,7 @@ import dev.atahabaki.wordbook.ui.viewmodelfactories.WordBookViewModelFactory
 import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.SabStateViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,21 +47,25 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
         sabViewModel.sabState.observe(viewLifecycleOwner, {
             if (it) {
                 binding.wordbookSearchTextInput.visibility = View.GONE
-                binding.wordbookSearchClose.visibility = View.GONE
                 fabViewModel.selectFabState(false)
             }
             else {
                 binding.wordbookSearchTextInput.visibility = View.VISIBLE
-                binding.wordbookSearchClose.visibility = View.VISIBLE
                 fabViewModel.selectFabState(true)
             }
         })
-        binding.wordbookSearchClose.setOnClickListener {
-            sabViewModel.selectSabState(true)
-        }
         val adapter = WordItemAdapter(listOf())
         binding.fragmentWordbookListRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.fragmentWordbookListRecyclerView.adapter = adapter
+
+        binding.wordbookSearchTextInput.editText?.doOnTextChanged { text, start, count, after ->
+            updateAdapterWithSearchText(adapter, text.toString())
+        }
+        binding.wordbookSearchTextInput.setEndIconOnClickListener {
+            binding.wordbookSearchTextInput.editText?.setText("")
+            updateAdapterWithSearchText(adapter, "")
+            sabViewModel.selectSabState(true)
+        }
 
         ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
@@ -78,6 +84,15 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
 
         activity?.let {
             viewModel.getAllWords().observe(it, { list ->
+                adapter.items = list
+                adapter.notifyDataSetChanged()
+            })
+        }
+    }
+
+    private fun updateAdapterWithSearchText(adapter: WordItemAdapter, search: String?) {
+        activity?.let {
+            viewModel.searchWords(search!!.toLowerCase(Locale.getDefault()))?.observe(it, { list ->
                 adapter.items = list
                 adapter.notifyDataSetChanged()
             })
