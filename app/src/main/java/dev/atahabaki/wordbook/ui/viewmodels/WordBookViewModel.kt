@@ -34,6 +34,10 @@ class WordBookViewModel @AssistedInject constructor(
         repository.delete(word)
     }
 
+    fun deleteAll() = CoroutineScope(Dispatchers.Main).launch {
+        repository.deleteAll()
+    }
+
     fun getAllWords() = repository.getAllWords()
 
     fun searchWords(content: String) = repository.searchWords(content)
