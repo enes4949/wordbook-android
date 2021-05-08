@@ -7,17 +7,15 @@
     <string name="settings">Settings</string>
     <string name="by_author">by <b>@atahabaki</b></string>
     <string name="search_hint">What do you want to remember?</string>
-    <string name="filter">Filter words by...</string>
+    <string name="filter">Filter words by…</string>
     <string name="order_az_by_word">Order words A-Z</string>
     <string name="order_za_by_word">Order words Z-A</string>
     <string name="order_za_by_meaning">Order meanings A-Z</string>
     <string name="order_az_by_meaning">Order meanings Z-A</string>
     <string name="close_search">Close</string>
-    <string name="close_search_tooltip">Clear search and close search box...</string>
+    <string name="close_search_tooltip">Clear search and close search box…</string>
     <string name="delete_all">Delete All</string>
-    <string name="delete_all_tooltip">Delete everything...</string>
+    <string name="delete_all_tooltip">Delete everything…</string>
     <string name="cancel">Cancel</string>
-    <string name="add_new_title">Add New Entry</string>
-    <string name="add_new_hint">Fresh new word...</string>
-    <string name="continue_editing">Continue editing</string>
+    <string name="ok">OK</string>
 </resources>
