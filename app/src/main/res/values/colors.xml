@@ -6,4 +6,5 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="black">#000</color>
     <color name="defaultThemeColor">#ffffff</color>
+    <color name="negativeDefaultThemeColor">#000000</color>
 </resources>
