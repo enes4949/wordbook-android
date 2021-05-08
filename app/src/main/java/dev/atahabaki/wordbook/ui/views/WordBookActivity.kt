@@ -1,6 +1,5 @@
 package dev.atahabaki.wordbook.ui.views
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -108,7 +107,7 @@ class WordBookActivity : AppCompatActivity() {
 
     private fun navigateToWhere(where: Fragment) {
         supportFragmentManager.beginTransaction().also {
-            it.replace(R.id.activity_wordbook_framer, where)
+            it.replace(R.id.activity_wordbook_framer, where).addToBackStack(where.tag)
             it.commit()
         }
     }
