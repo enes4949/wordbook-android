@@ -19,6 +19,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/new_word_guideline_top"
+        android:text="@string/new_word"
         tools:text="New Word..." />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -31,8 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/new_word_guideline_top"
-        tools:hint="Fresh new word..."
-        tools:text="Wow">
+        android:hint="@string/new_word_hint">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -46,11 +46,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
+        android:text="@string/add_meaning"
         app:icon="@drawable/ic_add"
-        app:iconGravity="end"
+        app:iconGravity="start"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Meaning" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
