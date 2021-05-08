@@ -20,4 +20,7 @@
     <string name="ok">OK</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="confirmation_delete_all">This operation will erase all words from the list, there\'s no way to go back. Do you really want to delete?</string>
+    <string name="new_word">New Word…</string>
+    <string name="new_word_hint">Fresh new word…</string>
+    <string name="add_meaning">Add Meaning</string>
 </resources>
