@@ -16,4 +16,8 @@
     <string name="close_search_tooltip">Clear search and close search box...</string>
     <string name="delete_all">Delete All</string>
     <string name="delete_all_tooltip">Delete everything...</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_new_title">Add New Entry</string>
+    <string name="add_new_hint">Fresh new word...</string>
+    <string name="continue_editing">Continue editing</string>
 </resources>
