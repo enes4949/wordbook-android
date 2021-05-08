@@ -1,13 +1,16 @@
 package dev.atahabaki.wordbook.ui.views
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.data.entities.WordItem
@@ -54,13 +57,25 @@ class WordBookActivity : AppCompatActivity() {
                     true
                 }
                 R.id.words_menu_delete_all -> {
-                    //TODO(1) Show an alert message...
-                    viewModel.deleteAll()
+                    showDeleteConfirmation().show()
                     true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun showDeleteConfirmation(): AlertDialog {
+        return MaterialAlertDialogBuilder(this).setTitle(R.string.are_you_sure)
+            .setMessage(getString(R.string.confirmation_delete_all))
+            .setPositiveButton(R.string.ok) { dialog, _ ->
+                viewModel.deleteAll()
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
     }
 
     private fun handleNavMenu() {
