@@ -17,6 +17,9 @@
         <item name="bottomAppBarStyle">@style/Theme.ShamrockToolbox.BottomAppBar</item>
         <!-- BottomNav/Sheet -->
         <item name="navigationViewStyle">@style/Theme.ShamrockToolbox.NavigationView</item>
+        <!-- Dialog -->
+        <item name="materialAlertDialogTheme">@style/Theme.WordBook.Dialog</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Theme.WordBook.Dialog.Title</item>
     </style>
 
     <style name="Theme.ShamrockToolbox.BottomAppBar" parent="Widget.MaterialComponents.BottomAppBar">
@@ -35,5 +38,19 @@
         <item name="itemTextColor">@color/primaryTextColor</item>
         <item name="itemShapeFillColor">@color/black</item>
         <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Theme.WordBook.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">@android:color/black</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Theme.WordBook.Dialog.NegativeButton</item>
+    </style>
+
+    <style name="Theme.WordBook.Dialog.NegativeButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/primaryLightColor</item>
+        <item name="android:alpha">.5</item>
+    </style>
+
+    <style name="Theme.WordBook.Dialog.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 </resources>
