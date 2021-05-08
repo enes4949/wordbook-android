@@ -18,4 +18,6 @@
     <string name="delete_all_tooltip">Delete everything…</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="confirmation_delete_all">This operation will erase all words from the list, there\'s no way to go back. Do you really want to delete?</string>
 </resources>
