@@ -35,7 +35,7 @@ class WordBookActivity : AppCompatActivity() {
         initBottomNav()
         navigateToList()
         binding.wordsFab.setOnClickListener {
-            addJunkItem(viewModel)
+            navigateToAdd()
         }
 
         handleNavMenu()
@@ -104,6 +104,7 @@ class WordBookActivity : AppCompatActivity() {
     }
 
     private fun navigateToList() = navigateToWhere(WordBookListFragment(), false)
+    private fun navigateToAdd() = navigateToWhere(WordBookAddFragment())
 
     private fun navigateToWhere(where: Fragment, addToStack: Boolean = true) {
         supportFragmentManager.beginTransaction().also {
