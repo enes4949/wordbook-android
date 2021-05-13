@@ -103,11 +103,12 @@ class WordBookActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun navigateToList() = navigateToWhere(WordBookListFragment())
+    private fun navigateToList() = navigateToWhere(WordBookListFragment(), false)
 
-    private fun navigateToWhere(where: Fragment) {
+    private fun navigateToWhere(where: Fragment, addToStack: Boolean = true) {
         supportFragmentManager.beginTransaction().also {
-            it.replace(R.id.activity_wordbook_framer, where).addToBackStack(where.tag)
+            if (addToStack) it.replace(R.id.activity_wordbook_framer, where).addToBackStack(where.tag)
+            else it.replace(R.id.activity_wordbook_framer, where)
             it.commit()
         }
     }
