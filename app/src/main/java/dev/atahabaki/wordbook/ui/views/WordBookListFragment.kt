@@ -15,8 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.adapters.WordItemAdapter
 import dev.atahabaki.wordbook.databinding.FragmentWordbookListBinding
-import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
-import dev.atahabaki.wordbook.ui.viewmodels.SabStateViewModel
+import dev.atahabaki.wordbook.ui.viewmodels.UIViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 import java.util.*
 
@@ -27,8 +26,7 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
 
     private val viewModel: WordBookViewModel by viewModels()
 
-    private val fabViewModel: FabStateViewModel by activityViewModels()
-    private val sabViewModel: SabStateViewModel by activityViewModels()
+    private val uiViewModel: UIViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentWordbookListBinding.inflate(inflater,container,false)
@@ -37,14 +35,14 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sabViewModel.sabState.observe(viewLifecycleOwner, {
+        uiViewModel.sabState.observe(viewLifecycleOwner, {
             if (it) {
                 binding.wordbookSearchTextInput.visibility = View.GONE
-                fabViewModel.selectFabState(false)
+                uiViewModel.selectFabState(false)
             }
             else {
                 binding.wordbookSearchTextInput.visibility = View.VISIBLE
-                fabViewModel.selectFabState(true)
+                uiViewModel.selectFabState(true)
             }
         })
         val adapter = WordItemAdapter(listOf())
@@ -57,7 +55,7 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
         binding.wordbookSearchTextInput.setEndIconOnClickListener {
             binding.wordbookSearchTextInput.editText?.setText("")
             getAllWords(adapter)
-            sabViewModel.selectSabState(true)
+            uiViewModel.selectSabState(true)
         }
 
         ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {

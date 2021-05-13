@@ -14,8 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.atahabaki.wordbook.R
 import dev.atahabaki.wordbook.data.entities.WordItem
 import dev.atahabaki.wordbook.databinding.ActivityWordbookBinding
-import dev.atahabaki.wordbook.ui.viewmodels.FabStateViewModel
-import dev.atahabaki.wordbook.ui.viewmodels.SabStateViewModel
+import dev.atahabaki.wordbook.ui.viewmodels.UIViewModel
 import dev.atahabaki.wordbook.ui.viewmodels.WordBookViewModel
 import dev.atahabaki.wordbook.utils.Constants
 
@@ -26,8 +25,7 @@ class WordBookActivity : AppCompatActivity() {
 
     private val viewModel: WordBookViewModel by viewModels()
 
-    private val fabViewModel: FabStateViewModel by viewModels()
-    private val sabViewModel: SabStateViewModel by viewModels()
+    private val uiViewModel: UIViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +38,7 @@ class WordBookActivity : AppCompatActivity() {
 
         handleNavMenu()
 
-        fabViewModel.fabState.observe(this, {
+        uiViewModel.fabState.observe(this, {
             if (it) {
                 binding.wordsFab.hide()
             }
@@ -52,7 +50,7 @@ class WordBookActivity : AppCompatActivity() {
         binding.wordsBottomAppbar.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.words_menu_search -> {
-                    sabViewModel.selectSabState(false)
+                    uiViewModel.selectSabState(false)
                     true
                 }
                 R.id.words_menu_delete_all -> {
