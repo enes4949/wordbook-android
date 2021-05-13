@@ -86,7 +86,7 @@ class WordBookListFragment: Fragment(R.layout.fragment_wordbook_list) {
 
     private fun updateAdapterWithSearchText(adapter: WordItemAdapter, search: String) {
         activity?.let {
-            viewModel.searchWords(search!!.toLowerCase(Locale.getDefault()))?.observe(it, { list ->
+            viewModel.searchWords(search.lowercase(Locale.getDefault()))?.observe(it, { list ->
                 adapter.items = list
                 adapter.notifyDataSetChanged()
             })
