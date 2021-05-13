@@ -1,11 +1,5 @@
 # WordBook: Your Personal Dictionary
-
-## What does this app do?
-
 This app is for reminding/helping you memorize words. It sends notifications regularly and asks you to chose the correct word for the given meaning.
-
-## Whom is this app for?
-
 This app is mostly intended for people whom are trying to learn a new language, trying to memorize words for exams etc.
 
 ## How to install?
